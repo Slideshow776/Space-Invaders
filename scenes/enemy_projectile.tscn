@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2acq2372xqne"]
+
+[ext_resource type="Script" path="res://scripts/enemy_projectile.gd" id="1_fjk0r"]
+[ext_resource type="Texture2D" uid="uid://d1fqe3vst44vj" path="res://assets/icon.svg" id="2_inio0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gjk28"]
+radius = 13.0
+
+[node name="PlayerProjectile" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_fjk0r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gjk28")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(0.171875, 0.171875)
+texture = ExtResource("2_inio0")

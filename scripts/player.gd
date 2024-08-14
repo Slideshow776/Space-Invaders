@@ -7,6 +7,12 @@ const ROTATION_SPEED = 3.0
 var steering_factor := 10.0
 var velocity := Vector2.ZERO
 
+@onready var projectile_timer = %ProjectileTimer
+
+
+func _ready():	
+	area_entered.connect(_on_area_entered)
+
 
 func _process(delta):	
 	var direction := _poll_movement(delta)
@@ -21,9 +27,6 @@ func _input(event):
 func _poll_movement(delta: float) -> Vector2:
 	var direction = Vector2.ZERO
 	direction.x = Input.get_axis("move_left", "move_right")
-	
-	if direction.length() > 1.0:
-		direction = direction.normalized()
 	
 	var desired_velocity: Vector2 = MAX_SPEED * direction
 	var steering_vector := desired_velocity - velocity	
@@ -42,6 +45,16 @@ func _rotate_into_direction(delta: float, direction: Vector2):
 		rotation = lerp(rotation, 0.0, ROTATION_SPEED * delta)
 
 
-func _shoot():
-	print("shoot")
+func _shoot():	
+	if not projectile_timer.is_stopped():
+		return
+		
+	projectile_timer.start()
 	
+	var projectile := preload("res://scenes/player_projectile.tscn").instantiate()
+	projectile.position = global_position
+	get_parent().add_child(projectile)
+
+
+func _on_area_entered(area_that_entered: Area2D):
+	queue_free()

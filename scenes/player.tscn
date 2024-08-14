@@ -7,6 +7,7 @@
 radius = 32.0624
 
 [node name="Player" type="Area2D"]
+collision_mask = 8
 script = ExtResource("1_bvew5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -15,3 +16,8 @@ shape = SubResource("CircleShape2D_b2tgi")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.453125, 0.453125)
 texture = ExtResource("2_gxwsw")
+
+[node name="ProjectileTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true

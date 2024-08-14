@@ -1,4 +1,7 @@
+class_name Enemy
 extends Area2D
+
+signal has_changed_direction
 
 const MAX_ROTATION_ANGLE = 0.2
 const ROTATION_SPEED = 3.0
@@ -21,20 +24,18 @@ func _ready():
 	area_entered.connect(_on_area_entered)
 	
 
-#func _process(delta):
-	#var direction := _handle_movement(delta)
-	#_rotate_into_direction(delta, direction)
+func _process(delta):
+	var direction := _handle_movement(delta)
+	_rotate_into_direction(delta, direction)
 
 
 func _handle_movement(delta: float) -> Vector2:
 	var bounds := get_viewport_rect().size
 	var size: float = sprite_2d.texture.get_width() * sprite_2d.scale.x
 	if position.x > bounds.x - size and direction.x > 0.0:
-		direction.x *= -1
-		_drop_down_one_level()
+		_change_direction()
 	elif position.x < 0 + size and direction.x < 0.0:
-		direction.x *= -1
-		_drop_down_one_level()
+		_change_direction()
 	
 	var desired_velocity: Vector2 = speed * direction
 	var steering_vector := desired_velocity - velocity	
@@ -42,6 +43,12 @@ func _handle_movement(delta: float) -> Vector2:
 	position += velocity * delta
 	
 	return direction
+
+
+func _change_direction():
+	has_changed_direction.emit(self)
+	direction.x *= -1
+	_drop_down_one_level()
 
 
 func _rotate_into_direction(delta: float, direction: Vector2):

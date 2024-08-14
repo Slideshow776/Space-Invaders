@@ -1,7 +1,7 @@
 extends Node2D
 
-const ENEMY_COUNT_X = 5
-const ENEMY_COUNT_Y = 2
+const ENEMY_COUNT_X = 11
+const ENEMY_COUNT_Y = 5
 
 var enemies: Array[Enemy]
 
@@ -43,8 +43,7 @@ func _spawn_enemies():
 			)
 			add_child(enemy)
 
-func _on_enemy_changed_direction(enemy: Enemy):
-	for enemy2 in enemies:
-		if enemy == enemy2:
-			continue
-		enemy2.direction.x *= -1
+func _on_enemy_changed_direction(changed_enemy: Enemy):
+	for enemy in enemies:
+		if enemy != changed_enemy:
+			enemy.direction.x *= -1

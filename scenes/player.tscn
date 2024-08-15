@@ -20,5 +20,5 @@ texture = ExtResource("2_gxwsw")
 
 [node name="ProjectileTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.2
+wait_time = 0.4
 one_shot = true

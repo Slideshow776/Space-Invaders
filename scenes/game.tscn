@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://2acf4p2ukvio"]
+[gd_scene load_steps=4 format=3 uid="uid://2acf4p2ukvio"]
 
 [ext_resource type="PackedScene" uid="uid://bfsjgvt7mh6op" path="res://scenes/player.tscn" id="1_0jule"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_1k3nv"]
+[ext_resource type="PackedScene" uid="uid://dpbgycad0y1jn" path="res://scenes/shield.tscn" id="3_u3kbr"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_1k3nv")
@@ -14,3 +15,56 @@ color = Color(0, 0, 0, 1)
 [node name="Player" parent="." instance=ExtResource("1_0jule")]
 unique_name_in_owner = true
 position = Vector2(564, 597)
+
+[node name="Shields" type="Node" parent="."]
+
+[node name="shield_one" type="Node" parent="Shields"]
+
+[node name="Shield" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
+position = Vector2(550, 485)
+
+[node name="Shield2" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
+position = Vector2(550, 447)
+
+[node name="Shield3" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
+position = Vector2(588, 447)
+
+[node name="Shield4" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
+position = Vector2(626, 447)
+
+[node name="Shield5" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
+position = Vector2(626, 485)
+
+[node name="shield_one2" type="Node" parent="Shields"]
+
+[node name="Shield" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
+position = Vector2(193, 485)
+
+[node name="Shield2" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
+position = Vector2(193, 447)
+
+[node name="Shield3" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
+position = Vector2(231, 447)
+
+[node name="Shield4" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
+position = Vector2(269, 447)
+
+[node name="Shield5" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
+position = Vector2(269, 485)
+
+[node name="shield_one3" type="Node" parent="Shields"]
+
+[node name="Shield" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
+position = Vector2(906, 485)
+
+[node name="Shield2" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
+position = Vector2(906, 447)
+
+[node name="Shield3" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
+position = Vector2(944, 447)
+
+[node name="Shield4" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
+position = Vector2(982, 447)
+
+[node name="Shield5" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
+position = Vector2(982, 485)

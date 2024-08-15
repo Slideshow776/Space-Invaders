@@ -7,7 +7,7 @@
 radius = 23.0217
 
 [node name="Enemy" type="Area2D" groups=["enemies"]]
-collision_layer = 5
+collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_4lsed")
 

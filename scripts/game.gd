@@ -3,11 +3,14 @@ extends Node2D
 const ENEMY_COUNT_X = 11
 const ENEMY_COUNT_Y = 5
 
+@onready var player = %Player
+
 var enemies: Array[Enemy]
 
 
 func _ready():
 	_spawn_enemies()
+	player.connect("died", _set_game_over)
 
 
 func _input(event):

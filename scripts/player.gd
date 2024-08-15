@@ -1,5 +1,7 @@
 extends Area2D
 
+signal died
+
 const MAX_SPEED := 500.0
 const MAX_ROTATION_ANGLE = 0.2
 const ROTATION_SPEED = 3.0
@@ -57,4 +59,5 @@ func _shoot():
 
 
 func _on_area_entered(area_that_entered: Area2D):
+	died.emit()
 	queue_free()

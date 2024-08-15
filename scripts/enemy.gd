@@ -22,7 +22,9 @@ var is_paused := false
 
 
 func _ready():
-	#projectile_timer.connect("timeout", _on_projectile_timer_timeout)
+	projectile_timer.wait_time = randf_range(5.0, 30.0)
+	projectile_timer.start()
+	projectile_timer.connect("timeout", _on_projectile_timer_timeout)
 	movement_timer.connect("timeout", _on_movement_timer_timeout)
 	area_entered.connect(_on_area_entered)
 	
@@ -37,8 +39,14 @@ func _process(delta):
 
 func drop_down_one_level():
 	var tween := create_tween()	
-	var amount: float = sprite_2d.texture.get_height() * sprite_2d.scale.y
+	var amount: float = sprite_2d.texture.get_height() * sprite_2d.scale.y	
 	tween.tween_property(self, "position:y", position.y + amount, 0.2)
+	tween.parallel()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_QUINT)
+	tween.tween_property(self, "scale", Vector2(0.8, 1.2), 0.2)
+	tween.set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2)
 	
 	if position.y + (2 * amount) >= get_viewport_rect().size.y:
 		reached_bottom.emit()
@@ -75,10 +83,10 @@ func _rotate_into_direction(delta: float, direction: Vector2):
 		rotation = lerp(rotation, 0.0, ROTATION_SPEED * delta)
 
 	
-#func _on_projectile_timer_timeout():
-	#var projectile := preload("res://scenes/enemy_projectile.tscn").instantiate()
-	#projectile.position = global_position
-	#get_parent().add_child(projectile)
+func _on_projectile_timer_timeout():
+	var projectile := preload("res://scenes/enemy_projectile.tscn").instantiate()
+	projectile.position = global_position
+	get_parent().add_child(projectile)
 	
 
 func _on_movement_timer_timeout():
@@ -92,4 +100,5 @@ func _on_movement_timer_timeout():
 	
 func _on_area_entered(area_that_entered: Area2D):
 	died.emit(self)
+	projectile_timer.stop()
 	queue_free()

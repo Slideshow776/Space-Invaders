@@ -21,7 +21,6 @@ texture = ExtResource("2_n03n5")
 
 [node name="ProjectileTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-autostart = true
 
 [node name="MovementTimer" type="Timer" parent="."]
 unique_name_in_owner = true

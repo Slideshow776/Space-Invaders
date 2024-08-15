@@ -22,7 +22,7 @@ var is_paused := false
 
 
 func _ready():
-	projectile_timer.wait_time = randf_range(5.0, 30.0)
+	projectile_timer.wait_time = randf_range(4.0, 32.0)
 	projectile_timer.start()
 	projectile_timer.connect("timeout", _on_projectile_timer_timeout)
 	movement_timer.connect("timeout", _on_movement_timer_timeout)
@@ -39,7 +39,7 @@ func _process(delta):
 
 func drop_down_one_level():
 	var tween := create_tween()	
-	var amount: float = sprite_2d.texture.get_height() * sprite_2d.scale.y	
+	var amount: float = sprite_2d.texture.get_height() * sprite_2d.scale.y
 	tween.tween_property(self, "position:y", position.y + amount, 0.2)
 	tween.parallel()
 	tween.set_ease(Tween.EASE_OUT)
@@ -50,6 +50,11 @@ func drop_down_one_level():
 	
 	if position.y + (2 * amount) >= get_viewport_rect().size.y:
 		reached_bottom.emit()
+
+
+func game_over():
+	is_paused = true
+	projectile_timer.stop()
 
 
 func _handle_movement(delta: float) -> Vector2:

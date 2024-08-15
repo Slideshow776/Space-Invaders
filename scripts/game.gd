@@ -22,8 +22,8 @@ func _spawn_enemies():
 	var enemy_scene = preload("res://scenes/enemy.tscn")
 	var example_enemy = enemy_scene.instantiate()
 	var sprite_size = example_enemy.get_node("Sprite2D").texture.get_size()
-	var spacing_x = sprite_size.x * 0.5
-	var spacing_y = sprite_size.y * 0.575
+	var spacing_x = sprite_size.x * 0.35
+	var spacing_y = sprite_size.y * 0.4
 	example_enemy.queue_free()
 
 	# Calculate the total width of the grid
@@ -58,9 +58,11 @@ func _on_enemy_changed_direction(changed_enemy: Enemy):
 
 func _update_enemies(dead_enemy: Enemy):
 	enemies.erase(dead_enemy)
+	if enemies.is_empty():
+		_set_game_over("A   W I N N E R   I S   Y O U !")
 
 
-func _set_game_over():
-	print("G A M E   O V E R !")
+func _set_game_over(message: String = "G A M E   O V E R !"):
+	print(message)
 	for enemy in enemies:
-		enemy.is_paused = true
+		enemy.game_over()

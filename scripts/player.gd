@@ -10,6 +10,7 @@ var steering_factor := 10.0
 var velocity := Vector2.ZERO
 
 @onready var projectile_timer = %ProjectileTimer
+@onready var sprite_2d = %Sprite2D
 
 
 func _ready():	
@@ -19,6 +20,7 @@ func _ready():
 func _process(delta):	
 	var direction := _poll_movement(delta)
 	_rotate_into_direction(delta, direction)
+	_wrap_position()
 	
 
 func _input(event):
@@ -45,6 +47,14 @@ func _rotate_into_direction(delta: float, direction: Vector2):
 		rotation = lerp(rotation, MAX_ROTATION_ANGLE, ROTATION_SPEED * delta)
 	else:  # No horizontal movement, return to upright position
 		rotation = lerp(rotation, 0.0, ROTATION_SPEED * delta)
+
+
+func _wrap_position():
+	var width: float = sprite_2d.texture.get_width() * sprite_2d.scale.x
+	if position.x + width <= 0:
+		position.x = get_viewport_rect().size.x
+	elif position.x >= get_viewport_rect().size.x + width:
+		position.x = 0
 
 
 func _shoot():	

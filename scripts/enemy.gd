@@ -1,7 +1,8 @@
 class_name Enemy
 extends Area2D
 
-signal has_changed_direction
+signal changed_direction
+signal died
 
 const MAX_ROTATION_ANGLE = 0.2
 const ROTATION_SPEED = 3.0
@@ -46,7 +47,7 @@ func _handle_movement(delta: float) -> Vector2:
 
 
 func _change_direction():
-	has_changed_direction.emit(self)
+	changed_direction.emit(self)
 	direction.x *= -1
 	_drop_down_one_level()
 
@@ -80,4 +81,5 @@ func _on_movement_timer_timeout():
 	
 	
 func _on_area_entered(area_that_entered: Area2D):
+	died.emit(self)
 	queue_free()

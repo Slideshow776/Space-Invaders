@@ -36,7 +36,8 @@ func _spawn_enemies():
 		for x in range(ENEMY_COUNT_X):
 			var enemy = enemy_scene.instantiate()
 			enemies.append(enemy)
-			enemy.connect("has_changed_direction", _on_enemy_changed_direction)
+			enemy.connect("changed_direction", _on_enemy_changed_direction)
+			enemy.connect("died", _update_enemies)
 			enemy.position = Vector2(
 				offset_x + x * spacing_x,
 				offset_y + y * spacing_y
@@ -47,3 +48,7 @@ func _on_enemy_changed_direction(changed_enemy: Enemy):
 	for enemy in enemies:
 		if enemy != changed_enemy:
 			enemy.direction.x *= -1
+
+
+func _update_enemies(dead_enemy: Enemy):
+	enemies.erase(dead_enemy)

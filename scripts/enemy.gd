@@ -3,6 +3,7 @@ extends Area2D
 
 signal changed_direction
 signal died
+signal reached_bottom
 
 const MAX_ROTATION_ANGLE = 0.2
 const ROTATION_SPEED = 3.0
@@ -13,6 +14,7 @@ var speed := SLOW_SPEED
 var steering_factor := 10.0
 var velocity := Vector2.ZERO
 var direction = Vector2(1.0, 0.0)
+var is_paused := false
 
 @onready var projectile_timer = %ProjectileTimer
 @onready var movement_timer = %MovementTimer
@@ -26,8 +28,20 @@ func _ready():
 	
 
 func _process(delta):
+	if is_paused:
+		return
+	
 	var direction := _handle_movement(delta)
 	_rotate_into_direction(delta, direction)
+
+
+func drop_down_one_level():
+	var tween := create_tween()	
+	var amount: float = sprite_2d.texture.get_height() * sprite_2d.scale.y
+	tween.tween_property(self, "position:y", position.y + amount, 0.2)
+	
+	if position.y + (2 * amount) >= get_viewport_rect().size.y:
+		reached_bottom.emit()
 
 
 func _handle_movement(delta: float) -> Vector2:
@@ -49,7 +63,7 @@ func _handle_movement(delta: float) -> Vector2:
 func _change_direction():
 	changed_direction.emit(self)
 	direction.x *= -1
-	_drop_down_one_level()
+	drop_down_one_level()
 
 
 func _rotate_into_direction(delta: float, direction: Vector2):
@@ -59,10 +73,6 @@ func _rotate_into_direction(delta: float, direction: Vector2):
 		rotation = lerp(rotation, MAX_ROTATION_ANGLE, ROTATION_SPEED * delta)
 	else:  # No horizontal movement, return to upright position
 		rotation = lerp(rotation, 0.0, ROTATION_SPEED * delta)
-
-
-func _drop_down_one_level():
-	pass # TODO: implement enemies going lower towards the player...
 
 	
 #func _on_projectile_timer_timeout():

@@ -38,17 +38,26 @@ func _spawn_enemies():
 			enemies.append(enemy)
 			enemy.connect("changed_direction", _on_enemy_changed_direction)
 			enemy.connect("died", _update_enemies)
+			enemy.connect("reached_bottom", _set_game_over)
 			enemy.position = Vector2(
 				offset_x + x * spacing_x,
 				offset_y + y * spacing_y
 			)
 			add_child(enemy)
 
+
 func _on_enemy_changed_direction(changed_enemy: Enemy):
 	for enemy in enemies:
 		if enemy != changed_enemy:
 			enemy.direction.x *= -1
+			enemy.drop_down_one_level()
 
 
 func _update_enemies(dead_enemy: Enemy):
 	enemies.erase(dead_enemy)
+
+
+func _set_game_over():
+	print("G A M E   O V E R !")
+	for enemy in enemies:
+		enemy.is_paused = true

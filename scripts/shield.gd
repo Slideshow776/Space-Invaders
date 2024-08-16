@@ -1,6 +1,6 @@
 extends Area2D
 
-const MAX_HEALTH := 3
+const MAX_HEALTH := 4
 
 var health = MAX_HEALTH
 

@@ -15,43 +15,43 @@ offset_bottom = 656.0
 
 [node name="Player" parent="." instance=ExtResource("1_0jule")]
 unique_name_in_owner = true
-position = Vector2(564, 597)
+position = Vector2(576, 600)
 
 [node name="Shields" type="Node" parent="."]
 
 [node name="shield_one" type="Node" parent="Shields"]
 
 [node name="Shield" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
-position = Vector2(538, 497)
+position = Vector2(528, 498)
 
 [node name="Shield2" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
-position = Vector2(538, 447)
+position = Vector2(528, 448)
 
 [node name="Shield3" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
-position = Vector2(588, 447)
+position = Vector2(578, 448)
 
 [node name="Shield4" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
-position = Vector2(638, 447)
+position = Vector2(628, 448)
 
 [node name="Shield5" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
-position = Vector2(638, 497)
+position = Vector2(628, 498)
 
 [node name="shield_one2" type="Node" parent="Shields"]
 
 [node name="Shield" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
-position = Vector2(181, 497)
+position = Vector2(160, 498)
 
 [node name="Shield2" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
-position = Vector2(181, 447)
+position = Vector2(160, 448)
 
 [node name="Shield3" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
-position = Vector2(231, 447)
+position = Vector2(210, 448)
 
 [node name="Shield4" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
-position = Vector2(281, 447)
+position = Vector2(260, 448)
 
 [node name="Shield5" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
-position = Vector2(281, 497)
+position = Vector2(260, 498)
 
 [node name="shield_one3" type="Node" parent="Shields"]
 

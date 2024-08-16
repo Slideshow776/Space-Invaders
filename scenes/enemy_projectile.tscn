@@ -5,17 +5,16 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gjk28"]
 resource_local_to_scene = true
-radius = 12.0
 
 [node name="PlayerProjectile" type="Area2D"]
 collision_layer = 8
 collision_mask = 17
 script = ExtResource("1_fjk0r")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_gjk28")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 scale = Vector2(0.171875, 0.171875)
 texture = ExtResource("2_inio0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gjk28")

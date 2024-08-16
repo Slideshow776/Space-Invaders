@@ -24,6 +24,14 @@ var is_slow_speed := false
 var movement_duration_fast := 0.75
 var movement_duration_slow := 0.04
 
+var sprites: Array[CompressedTexture2D] = [
+		preload("res://assets/enemies/enemy_0.png"),
+		preload("res://assets/enemies/enemy_1.png"),
+		preload("res://assets/enemies/enemy_2.png"),
+		preload("res://assets/enemies/enemy_3.png"),
+		preload("res://assets/enemies/enemy_4.png"),
+	]
+
 @onready var projectile_timer = %ProjectileTimer
 @onready var movement_timer = %MovementTimer
 @onready var sprite_2d = %Sprite2D

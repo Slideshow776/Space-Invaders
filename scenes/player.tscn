@@ -4,14 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://d1fqe3vst44vj" path="res://assets/icon.svg" id="2_gxwsw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b2tgi"]
-radius = 39.0
+radius = 36.0
 
 [node name="Player" type="Area2D"]
 collision_mask = 8
 script = ExtResource("1_bvew5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_b2tgi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -22,3 +19,6 @@ texture = ExtResource("2_gxwsw")
 unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b2tgi")

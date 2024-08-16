@@ -21,9 +21,9 @@ func _input(event):
 func _spawn_enemies():
 	var enemy_scene = preload("res://scenes/enemy.tscn")
 	var example_enemy = enemy_scene.instantiate()
-	var sprite_size = example_enemy.get_node("Sprite2D").texture.get_size()
-	var spacing_x = sprite_size.x * 0.35
-	var spacing_y = sprite_size.y * 0.4
+	var sprite_size = example_enemy.get_node("Sprite2D").texture.get_size() * example_enemy.get_node("Sprite2D").scale.x
+	var spacing_x = sprite_size.x * 0.8
+	var spacing_y = sprite_size.y * 1.0
 	example_enemy.queue_free()
 
 	# Calculate the total width of the grid
@@ -47,6 +47,8 @@ func _spawn_enemies():
 				offset_y + y * spacing_y
 			)
 			add_child(enemy)
+			enemy.sprite_2d.texture = enemy.sprites[y % enemy.sprites.size()]
+			print(enemy.sprite_2d)
 
 
 func _on_enemy_changed_direction(changed_enemy: Enemy):

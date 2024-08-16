@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/shield.gd" id="1_vkiy6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fjtwq"]
-size = Vector2(38, 38)
+size = Vector2(50, 50)
 
 [node name="Shield" type="Area2D"]
 collision_layer = 16
@@ -15,5 +15,5 @@ script = ExtResource("1_vkiy6")
 shape = SubResource("RectangleShape2D_fjtwq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.296875, 0.296875)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_umg8a")

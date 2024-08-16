@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d1fqe3vst44vj" path="res://assets/icon.svg" id="2_gxwsw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b2tgi"]
-radius = 28.0
+radius = 39.0
 
 [node name="Player" type="Area2D"]
 collision_mask = 8
@@ -15,10 +15,10 @@ shape = SubResource("CircleShape2D_b2tgi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(0.421875, 0.421875)
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_gxwsw")
 
 [node name="ProjectileTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.4
+wait_time = 0.5
 one_shot = true

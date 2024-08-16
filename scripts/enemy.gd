@@ -7,14 +7,22 @@ signal reached_bottom
 
 const MAX_ROTATION_ANGLE = 0.2
 const ROTATION_SPEED = 3.0
-const SLOW_SPEED = 10.0
-const FAST_SPEED = 600.0
 
-var speed := SLOW_SPEED
+var fast_speed := 600.0
+var slow_speed := 10.0
+
+var max_shooting_frequency := 32.0
+var min_shooting_frequency := 16.0
+
+var speed := slow_speed
 var steering_factor := 10.0
 var velocity := Vector2.ZERO
 var direction = Vector2(1.0, 0.0)
 var is_paused := false
+
+var is_slow_speed := false
+var movement_duration_fast := 0.75
+var movement_duration_slow := 0.04
 
 @onready var projectile_timer = %ProjectileTimer
 @onready var movement_timer = %MovementTimer
@@ -22,10 +30,12 @@ var is_paused := false
 
 
 func _ready():
-	projectile_timer.wait_time = randf_range(4.0, 32.0)
-	projectile_timer.start()
+	projectile_timer.set_wait_time(randf_range(min_shooting_frequency, max_shooting_frequency))
+	projectile_timer.start(randf_range(0.0, projectile_timer.wait_time))
 	projectile_timer.connect("timeout", _on_projectile_timer_timeout)
+	
 	movement_timer.connect("timeout", _on_movement_timer_timeout)
+	
 	area_entered.connect(_on_area_entered)
 	
 
@@ -57,12 +67,20 @@ func game_over():
 	projectile_timer.stop()
 
 
+func update_speed():	
+	fast_speed *= 1.02
+	movement_duration_slow /= .99
+	
+	max_shooting_frequency *= .95
+	min_shooting_frequency *= .95
+
+
 func _handle_movement(delta: float) -> Vector2:
 	var bounds := get_viewport_rect().size
-	var size: float = sprite_2d.texture.get_width() * sprite_2d.scale.x
-	if position.x > bounds.x - size and direction.x > 0.0:
+	var width: float = sprite_2d.texture.get_width() * sprite_2d.scale.x
+	if (position.x > bounds.x - width) and (direction.x > 0.0):
 		_change_direction()
-	elif position.x < 0 + size and direction.x < 0.0:
+	elif (position.x < 0 + width) and (direction.x < 0.0):
 		_change_direction()
 	
 	var desired_velocity: Vector2 = speed * direction
@@ -89,18 +107,39 @@ func _rotate_into_direction(delta: float, direction: Vector2):
 
 	
 func _on_projectile_timer_timeout():
+	projectile_timer.set_wait_time(randf_range(min_shooting_frequency, max_shooting_frequency))
+	
+	var tween := create_tween()		
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_BOUNCE)
+	var amount := 2 * PI
+	if randf() < 0.5:
+		amount *= -1	
+	tween.tween_property(self, "rotation", amount, randf_range(0.4, 0.6))
+	
 	var projectile := preload("res://scenes/enemy_projectile.tscn").instantiate()
 	projectile.position = global_position
 	get_parent().add_child(projectile)
 	
 
 func _on_movement_timer_timeout():
-	if speed == SLOW_SPEED:
-		speed = FAST_SPEED
-		movement_timer.wait_time = 0.75
-	elif speed == FAST_SPEED:
-		speed = SLOW_SPEED	 
-		movement_timer.wait_time = 0.04
+	if is_slow_speed:
+		is_slow_speed = false
+		speed = fast_speed
+		movement_timer.set_wait_time(movement_duration_fast)
+		
+		var tween := create_tween()
+		tween.tween_property(self, "scale", Vector2(1.2, 0.8), 0.1)
+	else:
+		is_slow_speed = true
+		speed = slow_speed
+		movement_timer.set_wait_time(movement_duration_slow)
+		
+		var tween := create_tween()
+		tween.set_ease(Tween.EASE_OUT)
+		tween.set_trans(Tween.TRANS_BOUNCE)
+		tween.tween_property(self, "scale", Vector2(0.9, 1.1), 0.05)
+		tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.25)
 	
 	
 func _on_area_entered(area_that_entered: Area2D):

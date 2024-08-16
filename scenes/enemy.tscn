@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d1fqe3vst44vj" path="res://assets/icon.svg" id="2_n03n5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s0bwh"]
-radius = 23.0217
+radius = 20.0
 
 [node name="Enemy" type="Area2D" groups=["enemies"]]
 collision_layer = 4
@@ -16,7 +16,7 @@ shape = SubResource("CircleShape2D_s0bwh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(0.328125, 0.328125)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_n03n5")
 
 [node name="ProjectileTimer" type="Timer" parent="."]

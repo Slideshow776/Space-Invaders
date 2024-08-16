@@ -11,16 +11,21 @@ var velocity := Vector2.ZERO
 
 @onready var projectile_timer = %ProjectileTimer
 @onready var sprite_2d = %Sprite2D
+@onready var original_scale: Vector2 = sprite_2d.scale
 
 
-func _ready():	
+func _ready():
 	area_entered.connect(_on_area_entered)
 
 
-func _process(delta):	
+func _process(delta):
 	var direction := _poll_movement(delta)
 	_rotate_into_direction(delta, direction)
 	_wrap_position()
+	_stretchAndSqueeze()
+	
+	if Input.is_action_pressed("shoot"):
+		_shoot()
 	
 
 func _input(event):
@@ -71,3 +76,20 @@ func _shoot():
 func _on_area_entered(area_that_entered: Area2D):
 	died.emit()
 	queue_free()
+
+
+func _stretchAndSqueeze():
+	if velocity.length() > MAX_SPEED * 0.9:
+		# Player is moving: Stretch
+		var tween = create_tween()
+		tween.set_ease(Tween.EASE_OUT)
+		tween.set_trans(Tween.TRANS_LINEAR)
+		var amount := Vector2(original_scale.x * 1.1, original_scale.y * 0.9)
+		tween.tween_property(sprite_2d, "scale", amount, 0.2)
+	elif scale != original_scale:
+		# Player is not moving: Squeeze back to normal
+		var tween = create_tween()
+		tween.set_ease(Tween.EASE_OUT)
+		tween.set_trans(Tween.TRANS_BOUNCE)
+		tween.tween_property(sprite_2d, "scale", original_scale, 0.2)
+

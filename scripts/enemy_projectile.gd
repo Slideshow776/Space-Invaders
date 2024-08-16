@@ -8,6 +8,11 @@ const MOVEMENT_SPEED := 400
 
 func _ready():
 	area_entered.connect(_on_area_entered)
+	
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_IN)
+	tween.set_trans(Tween.TRANS_BOUNCE)
+	tween.tween_property(self, "scale", Vector2(0.6, 1.4), 0.25)
 
 
 func _process(delta):

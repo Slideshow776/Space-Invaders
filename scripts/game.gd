@@ -58,6 +58,8 @@ func _on_enemy_changed_direction(changed_enemy: Enemy):
 
 func _update_enemies(dead_enemy: Enemy):
 	enemies.erase(dead_enemy)
+	for enemy in enemies:
+		enemy.update_speed()
 	if enemies.is_empty():
 		_set_game_over("A   W I N N E R   I S   Y O U !")
 

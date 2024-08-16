@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/player_projectile.gd" id="1_ktp40"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gjk28"]
-radius = 13.0
+radius = 17.0
 
 [node name="PlayerProjectile" type="Area2D"]
 collision_layer = 2
@@ -16,5 +16,5 @@ shape = SubResource("CircleShape2D_gjk28")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(0.171875, 0.171875)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_cso0q")

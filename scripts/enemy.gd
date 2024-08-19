@@ -83,12 +83,12 @@ func game_over():
 	projectile_timer.stop()
 
 
-func update_speed():	
+func update_speed():
 	fast_speed *= 1.02
 	movement_duration_slow /= .99
 	
-	max_shooting_frequency *= .95
-	min_shooting_frequency *= .95
+	max_shooting_frequency *= .9
+	min_shooting_frequency *= .9
 
 
 func _handle_movement(delta: float) -> Vector2:
@@ -136,6 +136,7 @@ func _on_projectile_timer_timeout():
 	var projectile := preload("res://scenes/enemy_projectile.tscn").instantiate()
 	projectile.position = global_position
 	get_parent().add_child(projectile)
+	projectile.set_type(type)
 	
 
 func _on_movement_timer_timeout():
@@ -166,7 +167,11 @@ func _on_movement_timer_timeout():
 func _on_area_entered(area_that_entered: Area2D):
 	died.emit(self)
 	projectile_timer.stop()
-	queue_free()
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_IN)
+	tween.set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(sprite_2d, "scale", Vector2.ZERO, 0.25)
+	tween.finished.connect(queue_free)
 
 
 func _set_animation_frame(frame_index: int):
@@ -176,5 +181,3 @@ func _set_animation_frame(frame_index: int):
 		sprite_2d.texture = sprites_frame_1[type]
 	else:
 		printerr("Function was called with invalid frame index!")
-	
-	

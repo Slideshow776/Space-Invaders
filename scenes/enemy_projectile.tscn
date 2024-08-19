@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2acq2372xqne"]
 
 [ext_resource type="Script" path="res://scripts/enemy_projectile.gd" id="1_fjk0r"]
-[ext_resource type="Texture2D" uid="uid://duulfsqn2rhk6" path="res://assets/enemy_projectile.png" id="2_gbnuy"]
+[ext_resource type="Texture2D" uid="uid://duulfsqn2rhk6" path="res://assets/projectiles/enemy_projectile.png" id="2_djp7y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gjk28"]
 resource_local_to_scene = true
 
-[node name="PlayerProjectile" type="Area2D"]
+[node name="EnemyProjectile" type="Area2D"]
 collision_layer = 8
 collision_mask = 17
 script = ExtResource("1_fjk0r")
@@ -16,7 +16,7 @@ unique_name_in_owner = true
 position = Vector2(-1.11488, 0.00633756)
 rotation = 3.14159
 scale = Vector2(3.66604, 3.66604)
-texture = ExtResource("2_gbnuy")
+texture = ExtResource("2_djp7y")
 offset = Vector2(-0.849658, 0.0017284)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

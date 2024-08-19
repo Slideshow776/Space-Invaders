@@ -8,6 +8,7 @@ const ROTATION_SPEED = 3.0
 
 var steering_factor := 10.0
 var velocity := Vector2.ZERO
+var is_dead := false
 
 @onready var projectile_timer = %ProjectileTimer
 @onready var animated_sprite_2d = %AnimatedSprite2D
@@ -23,9 +24,9 @@ func _process(delta):
 	var direction := _poll_movement(delta)
 	_rotate_into_direction(delta, direction)
 	_wrap_position()
-	_stretchAndSqueeze()
+	#_stretchAndSqueeze()
 	
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_pressed("shoot") and not is_dead:
 		_shoot()
 	
 
@@ -64,7 +65,7 @@ func _wrap_position():
 		position.x = 0
 
 
-func _shoot():	
+func _shoot():
 	if not projectile_timer.is_stopped():
 		return
 		
@@ -73,11 +74,25 @@ func _shoot():
 	var projectile := preload("res://scenes/player_projectile.tscn").instantiate()
 	projectile.position = global_position
 	get_parent().add_child(projectile)
+	
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_BOUNCE)
+	var amount := Vector2(original_scale.x * 1.2, original_scale.y * 0.8)
+	tween.tween_property(animated_sprite_2d, "scale", amount, 0.167)
+	amount = Vector2(original_scale.x * 0.8, original_scale.y * 1.2)
+	tween.tween_property(animated_sprite_2d, "scale", amount, 0.167)
+	tween.tween_property(animated_sprite_2d, "scale", original_scale, 0.167)
 
 
 func _on_area_entered(area_that_entered: Area2D):
 	died.emit()
-	queue_free()
+	is_dead = true
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_IN)
+	tween.set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(animated_sprite_2d, "scale", Vector2.ZERO, 0.25)
+	tween.finished.connect(queue_free)
 
 
 func _stretchAndSqueeze():

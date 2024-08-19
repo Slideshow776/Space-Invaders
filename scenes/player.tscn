@@ -34,7 +34,7 @@ script = ExtResource("1_bvew5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(4.625, 4.625)
+scale = Vector2(4.25, 4.25)
 sprite_frames = SubResource("SpriteFrames_ro3vp")
 speed_scale = 0.4
 

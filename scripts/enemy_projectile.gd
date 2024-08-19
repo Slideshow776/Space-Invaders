@@ -3,6 +3,14 @@ extends Area2D
 
 const MOVEMENT_SPEED := 400
 
+var types: Array[CompressedTexture2D] = [
+	preload("res://assets/projectiles/enemy_projectile_0.png"),
+	preload("res://assets/projectiles/enemy_projectile_1.png"),
+	preload("res://assets/projectiles/enemy_projectile_2.png"),
+	preload("res://assets/projectiles/enemy_projectile_3.png"),
+	preload("res://assets/projectiles/enemy_projectile_4.png"),
+]
+
 @onready var sprite_2d = %Sprite2D
 
 
@@ -22,6 +30,10 @@ func _process(delta):
 		queue_free()
 	else:		
 		position.y += MOVEMENT_SPEED * delta
+
+
+func set_type(type: int):
+	sprite_2d.texture = types[type]
 
 
 func _on_area_entered(area_that_entered: Area2D):

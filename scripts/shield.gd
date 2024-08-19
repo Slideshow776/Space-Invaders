@@ -60,15 +60,9 @@ func _bounce_animation():
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_BOUNCE)
 	
-	#tween.parallel()
-	tween.tween_property(self, "scale", Vector2(1.1, 0.9), 0.1)
-	#tween.tween_property(self, "position:y", position.y + 1, 0.1)
-	
+	tween.tween_property(self, "scale", Vector2(1.1, 0.9), 0.1)	
 	tween.tween_property(self, "scale", Vector2(0.95, 1.05), 2.0)
-	
-	#tween.parallel()
 	tween.tween_property(self, "scale", Vector2.ONE, 1.5)
-	#tween.tween_property(self, "position:y", position.y - 1, 0.1)
 
 func _set_texture():
 	if health > 4 or health < 1:

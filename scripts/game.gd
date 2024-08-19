@@ -48,7 +48,6 @@ func _spawn_enemies():
 			)
 			add_child(enemy)
 			enemy.sprite_2d.texture = enemy.sprites[y % enemy.sprites.size()]
-			print(enemy.sprite_2d)
 
 
 func _on_enemy_changed_direction(changed_enemy: Enemy):

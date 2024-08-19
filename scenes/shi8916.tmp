@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dpbgycad0y1jn"]
 
 [ext_resource type="Script" path="res://scripts/shield.gd" id="1_vkiy6"]
-[ext_resource type="Texture2D" path="res://assets/shields/middle_4.png" id="2_e33bj"]
+[ext_resource type="Texture2D" uid="uid://ueskr5uj2wjn" path="res://assets/shields/middle.png" id="2_e33bj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fjtwq"]
 size = Vector2(50, 50)
@@ -10,11 +10,6 @@ size = Vector2(50, 50)
 collision_layer = 16
 collision_mask = 10
 script = ExtResource("1_vkiy6")
-bottom_left = null
-top_left = null
-middle = null
-top_right = null
-bottom_right = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true

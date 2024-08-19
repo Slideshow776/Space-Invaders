@@ -47,7 +47,7 @@ func _spawn_enemies():
 				offset_y + y * spacing_y
 			)
 			add_child(enemy)
-			enemy.sprite_2d.texture = enemy.sprites[y % enemy.sprites.size()]
+			enemy.type = y % enemy.sprites_frame_0.size()
 
 
 func _on_enemy_changed_direction(changed_enemy: Enemy):

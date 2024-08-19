@@ -24,41 +24,21 @@ position = Vector2(576, 600)
 [node name="Shield" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
 position = Vector2(530, 496)
 bottom_left = true
-top_left = null
-middle = null
-top_right = null
-bottom_right = null
 
 [node name="Shield2" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
 position = Vector2(530, 448)
-bottom_left = null
 top_left = true
-middle = null
-top_right = null
-bottom_right = null
 
 [node name="Shield3" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
 position = Vector2(578, 448)
-bottom_left = null
-top_left = null
 middle = true
-top_right = null
-bottom_right = null
 
 [node name="Shield4" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
 position = Vector2(626, 448)
-bottom_left = null
-top_left = null
-middle = null
 top_right = true
-bottom_right = null
 
 [node name="Shield5" parent="Shields/shield_one" instance=ExtResource("3_u3kbr")]
 position = Vector2(626, 496)
-bottom_left = null
-top_left = null
-middle = null
-top_right = null
 bottom_right = true
 
 [node name="shield_one2" type="Node" parent="Shields"]
@@ -66,41 +46,21 @@ bottom_right = true
 [node name="Shield" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
 position = Vector2(162, 495)
 bottom_left = true
-top_left = null
-middle = null
-top_right = null
-bottom_right = null
 
 [node name="Shield2" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
 position = Vector2(162, 448)
-bottom_left = null
 top_left = true
-middle = null
-top_right = null
-bottom_right = null
 
 [node name="Shield3" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
 position = Vector2(210, 448)
-bottom_left = null
-top_left = null
 middle = true
-top_right = null
-bottom_right = null
 
 [node name="Shield4" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
 position = Vector2(258, 448)
-bottom_left = null
-top_left = null
-middle = null
 top_right = true
-bottom_right = null
 
 [node name="Shield5" parent="Shields/shield_one2" instance=ExtResource("3_u3kbr")]
 position = Vector2(258, 496)
-bottom_left = null
-top_left = null
-middle = null
-top_right = null
 bottom_right = true
 
 [node name="shield_one3" type="Node" parent="Shields"]
@@ -108,39 +68,19 @@ bottom_right = true
 [node name="Shield" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
 position = Vector2(896, 495)
 bottom_left = true
-top_left = null
-middle = null
-top_right = null
-bottom_right = null
 
 [node name="Shield2" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
 position = Vector2(896, 447)
-bottom_left = null
 top_left = true
-middle = null
-top_right = null
-bottom_right = null
 
 [node name="Shield3" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
 position = Vector2(944, 447)
-bottom_left = null
-top_left = null
 middle = true
-top_right = null
-bottom_right = null
 
 [node name="Shield4" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
 position = Vector2(992, 447)
-bottom_left = null
-top_left = null
-middle = null
 top_right = true
-bottom_right = null
 
 [node name="Shield5" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
 position = Vector2(992, 495)
-bottom_left = null
-top_left = null
-middle = null
-top_right = null
 bottom_right = true

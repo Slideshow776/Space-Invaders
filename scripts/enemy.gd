@@ -23,18 +23,26 @@ var is_paused := false
 var is_slow_speed := false
 var movement_duration_fast := 0.75
 var movement_duration_slow := 0.04
+var type: int = -1
+var sprites_frame_0: Array[CompressedTexture2D] = [
+	preload("res://assets/enemies/enemy_0_0.png"),
+	preload("res://assets/enemies/enemy_1_0.png"),
+	preload("res://assets/enemies/enemy_2_0.png"),
+	preload("res://assets/enemies/enemy_3_0.png"),
+	preload("res://assets/enemies/enemy_4_0.png"),
+]
+var sprites_frame_1: Array[CompressedTexture2D] = [
+	preload("res://assets/enemies/enemy_0_1.png"),
+	preload("res://assets/enemies/enemy_1_1.png"),
+	preload("res://assets/enemies/enemy_2_1.png"),
+	preload("res://assets/enemies/enemy_3_1.png"),
+	preload("res://assets/enemies/enemy_4_1.png"),
+]
+var is_animation_frame_0 = true
 
-var sprites: Array[CompressedTexture2D] = [
-		preload("res://assets/enemies/enemy_0.png"),
-		preload("res://assets/enemies/enemy_1.png"),
-		preload("res://assets/enemies/enemy_2.png"),
-		preload("res://assets/enemies/enemy_3.png"),
-		preload("res://assets/enemies/enemy_4.png"),
-	]
-
+@onready var sprite_2d = %Sprite2D
 @onready var projectile_timer = %ProjectileTimer
 @onready var movement_timer = %MovementTimer
-@onready var sprite_2d = %Sprite2D
 
 
 func _ready():
@@ -133,6 +141,11 @@ func _on_projectile_timer_timeout():
 func _on_movement_timer_timeout():
 	if is_slow_speed:
 		is_slow_speed = false
+		is_animation_frame_0 = !is_animation_frame_0
+		if is_animation_frame_0:
+			_set_animation_frame(0)
+		else:
+			_set_animation_frame(1)
 		speed = fast_speed
 		movement_timer.set_wait_time(movement_duration_fast)
 		
@@ -154,3 +167,14 @@ func _on_area_entered(area_that_entered: Area2D):
 	died.emit(self)
 	projectile_timer.stop()
 	queue_free()
+
+
+func _set_animation_frame(frame_index: int):
+	if frame_index == 0:
+		sprite_2d.texture = sprites_frame_0[type]
+	elif frame_index == 1:
+		sprite_2d.texture = sprites_frame_1[type]
+	else:
+		printerr("Function was called with invalid frame index!")
+	
+	

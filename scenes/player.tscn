@@ -1,19 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfsjgvt7mh6op"]
+[gd_scene load_steps=7 format=3 uid="uid://bfsjgvt7mh6op"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bvew5"]
-[ext_resource type="Texture2D" uid="uid://d1fqe3vst44vj" path="res://assets/icon.svg" id="2_gxwsw"]
+[ext_resource type="Texture2D" uid="uid://cxcs566up0jyh" path="res://assets/player/player.png" id="3_c208s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38ckg"]
+atlas = ExtResource("3_c208s")
+region = Rect2(0, 0, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hku64"]
+atlas = ExtResource("3_c208s")
+region = Rect2(16, 0, 16, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ro3vp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38ckg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hku64")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b2tgi"]
-radius = 36.0
+radius = 24.0208
 
 [node name="Player" type="Area2D"]
 collision_mask = 8
 script = ExtResource("1_bvew5")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("2_gxwsw")
+scale = Vector2(4.625, 4.625)
+sprite_frames = SubResource("SpriteFrames_ro3vp")
+speed_scale = 0.4
 
 [node name="ProjectileTimer" type="Timer" parent="."]
 unique_name_in_owner = true

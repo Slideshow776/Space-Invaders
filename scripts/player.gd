@@ -10,12 +10,13 @@ var steering_factor := 10.0
 var velocity := Vector2.ZERO
 
 @onready var projectile_timer = %ProjectileTimer
-@onready var sprite_2d = %Sprite2D
-@onready var original_scale: Vector2 = sprite_2d.scale
+@onready var animated_sprite_2d = %AnimatedSprite2D
+@onready var original_scale: Vector2 = animated_sprite_2d.scale
 
 
 func _ready():
 	area_entered.connect(_on_area_entered)
+	animated_sprite_2d.play("default")
 
 
 func _process(delta):
@@ -55,7 +56,8 @@ func _rotate_into_direction(delta: float, direction: Vector2):
 
 
 func _wrap_position():
-	var width: float = sprite_2d.texture.get_width() * sprite_2d.scale.x
+	var temp = animated_sprite_2d.sprite_frames.get_frame_texture(animated_sprite_2d.animation, animated_sprite_2d.frame).get_size().x
+	var width: float = temp * animated_sprite_2d.scale.x
 	if position.x + width <= 0:
 		position.x = get_viewport_rect().size.x
 	elif position.x >= get_viewport_rect().size.x + width:
@@ -85,11 +87,11 @@ func _stretchAndSqueeze():
 		tween.set_ease(Tween.EASE_OUT)
 		tween.set_trans(Tween.TRANS_LINEAR)
 		var amount := Vector2(original_scale.x * 1.1, original_scale.y * 0.9)
-		tween.tween_property(sprite_2d, "scale", amount, 0.2)
+		tween.tween_property(animated_sprite_2d, "scale", amount, 0.2)
 	elif scale != original_scale:
 		# Player is not moving: Squeeze back to normal
 		var tween = create_tween()
 		tween.set_ease(Tween.EASE_OUT)
 		tween.set_trans(Tween.TRANS_BOUNCE)
-		tween.tween_property(sprite_2d, "scale", original_scale, 0.2)
+		tween.tween_property(animated_sprite_2d, "scale", original_scale, 0.2)
 

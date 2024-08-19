@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2acq2372xqne"]
 
 [ext_resource type="Script" path="res://scripts/enemy_projectile.gd" id="1_fjk0r"]
-[ext_resource type="Texture2D" uid="uid://d1fqe3vst44vj" path="res://assets/icon.svg" id="2_inio0"]
+[ext_resource type="Texture2D" uid="uid://duulfsqn2rhk6" path="res://assets/enemy_projectile.png" id="2_gbnuy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gjk28"]
 resource_local_to_scene = true
@@ -13,8 +13,11 @@ script = ExtResource("1_fjk0r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(0.171875, 0.171875)
-texture = ExtResource("2_inio0")
+position = Vector2(-1.11488, 0.00633756)
+rotation = 3.14159
+scale = Vector2(3.66604, 3.66604)
+texture = ExtResource("2_gbnuy")
+offset = Vector2(-0.849658, 0.0017284)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gjk28")

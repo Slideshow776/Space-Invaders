@@ -96,7 +96,7 @@ func _on_spawn_timer_timeout():
 		
 	is_dead = false
 	speed = max_speed
-	set_collision_layer(3)
+	set_collision_layer(4)
 	set_collision_mask(2)
 	rotation = 0.0
 	modulate.a = 1.0
@@ -107,7 +107,7 @@ func _on_spawn_timer_timeout():
 
 func _on_area_entered(area_that_entered: Area2D):
 	is_dead = true
-	died.emit(self)
+	died.emit()
 	movement_sound.stop()
 	spawn_timer.start()
 	max_speed *= 1.1

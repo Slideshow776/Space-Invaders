@@ -6,9 +6,12 @@ const ENEMY_COUNT_Y = 5
 @onready var player = %Player
 @onready var camera_2d = %Camera2D
 @onready var hitstop_timer = $HitstopTimer
+@onready var label = %Label
+@onready var message_label = %MessageLabel
 
 var enemies: Array[Enemy]
 var is_shakeable := true
+var score := 0
 
 
 func _ready():
@@ -65,8 +68,9 @@ func _spawn_enemies():
 
 func _spawn_ufo():
 	var ufo := preload("res://scenes/ufo.tscn").instantiate()
-	add_child(ufo)
+	ufo.connect("died", _add_score.bind(1000))
 	ufo.position = Vector2(2000.0, 100.0)
+	add_child(ufo)
 	ufo.spawn_timer.set_wait_time(30.0)
 
 
@@ -82,6 +86,7 @@ func _update_enemies(dead_enemy: Enemy):
 		camera_2d.start_shake()
 	
 	hitstop_timer.start()
+	_add_score(100)
 	_pause_game()
 	
 	enemies.erase(dead_enemy)
@@ -91,9 +96,16 @@ func _update_enemies(dead_enemy: Enemy):
 		_set_game_over("A   W I N N E R   I S   Y O U !")
 
 
+func _add_score(temp: int):
+	score += temp
+	label.text = str(score)
+
+
 func _set_game_over(message: String = "G A M E   O V E R !"):
 	print(message)
-	
+	message_label.text = message
+	message_label.z_index = 1110
+	message_label.visible = true
 	camera_2d.start_shake(5.0, 0.02)
 	hitstop_timer.wait_time = 0.5
 	hitstop_timer.start()

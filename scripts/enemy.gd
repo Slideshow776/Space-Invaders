@@ -150,11 +150,11 @@ func _on_movement_timer_timeout():
 		speed = fast_speed
 		movement_timer.set_wait_time(movement_duration_fast)
 		
-		WalkSounds.play_walk_sounds()
 		
 		var tween := create_tween()
 		tween.tween_property(self, "scale", Vector2(1.2, 0.8), 0.1)
 	else:
+		WalkSounds.play_walk_sounds()
 		is_slow_speed = true
 		speed = slow_speed
 		movement_timer.set_wait_time(movement_duration_slow)

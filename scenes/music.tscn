@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://byd1pi5gn4iik"]
+
+[ext_resource type="AudioStream" uid="uid://cb2ckhbpwt022" path="res://assets/audio/chiptune-nu-metal-216243.ogg" id="1_0agff"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_0agff")

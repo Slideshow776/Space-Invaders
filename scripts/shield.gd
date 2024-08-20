@@ -54,6 +54,8 @@ func _on_area_entered(area_entered: Area2D):
 	_set_texture()
 	_bounce_animation()
 	
+	%AudioStreamPlayer.pitch_scale = randf_range(0.8, 1.2)
+	%AudioStreamPlayer.play()
 
 func _bounce_animation():
 	var tween := create_tween()

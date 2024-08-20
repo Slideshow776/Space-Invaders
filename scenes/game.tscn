@@ -1,17 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://2acf4p2ukvio"]
+[gd_scene load_steps=6 format=3 uid="uid://2acf4p2ukvio"]
 
 [ext_resource type="PackedScene" uid="uid://bfsjgvt7mh6op" path="res://scenes/player.tscn" id="1_0jule"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_1k3nv"]
+[ext_resource type="Texture2D" uid="uid://cf5vo6ocldv0o" path="res://assets/background/background.png" id="2_33p74"]
 [ext_resource type="PackedScene" uid="uid://dpbgycad0y1jn" path="res://scenes/shield.tscn" id="3_u3kbr"]
+[ext_resource type="Script" path="res://scripts/camera2D.gd" id="5_ddvuo"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_1k3nv")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -3.0
-offset_top = -2.0
-offset_right = 1159.0
-offset_bottom = 656.0
+unique_name_in_owner = true
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_33p74")
 
 [node name="Player" parent="." instance=ExtResource("1_0jule")]
 unique_name_in_owner = true
@@ -84,3 +86,12 @@ top_right = true
 [node name="Shield5" parent="Shields/shield_one3" instance=ExtResource("3_u3kbr")]
 position = Vector2(992, 495)
 bottom_right = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(576, 324)
+script = ExtResource("5_ddvuo")
+
+[node name="HitstopTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true

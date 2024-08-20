@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfsjgvt7mh6op"]
+[gd_scene load_steps=8 format=3 uid="uid://bfsjgvt7mh6op"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bvew5"]
 [ext_resource type="Texture2D" uid="uid://cxcs566up0jyh" path="res://assets/player/player.png" id="3_c208s"]
+[ext_resource type="AudioStream" uid="uid://bx46gf4dgjl3s" path="res://assets/audio/player_death_Powerup50.wav" id="3_tbg2c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_38ckg"]
 atlas = ExtResource("3_c208s")
@@ -45,3 +46,7 @@ one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b2tgi")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_tbg2c")

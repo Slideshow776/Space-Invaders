@@ -1,3 +1,4 @@
+class_name Player
 extends Area2D
 
 signal died
@@ -86,13 +87,18 @@ func _shoot():
 
 
 func _on_area_entered(area_that_entered: Area2D):
+	%AudioStreamPlayer.play()
+	%AudioStreamPlayer.finished.connect(queue_free)
+	
+	self.set_collision_layer(0)
+	self.set_collision_mask(0)
 	died.emit()
 	is_dead = true
+	
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_IN)
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_property(animated_sprite_2d, "scale", Vector2.ZERO, 0.25)
-	tween.finished.connect(queue_free)
 
 
 func _stretchAndSqueeze():

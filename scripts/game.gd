@@ -4,18 +4,29 @@ const ENEMY_COUNT_X = 11
 const ENEMY_COUNT_Y = 5
 
 @onready var player = %Player
+@onready var camera_2d = %Camera2D
+@onready var hitstop_timer = $HitstopTimer
 
 var enemies: Array[Enemy]
+var is_shakeable := true
 
 
 func _ready():
 	_spawn_enemies()
 	player.connect("died", _set_game_over)
+	hitstop_timer.connect("timeout", _resume_game.bind())
 
 
 func _input(event):
 	if Input.is_action_just_pressed("restart"):
-		get_tree().reload_current_scene()
+		_restart()
+	elif Input.is_action_just_pressed("toggle_shake"):
+		is_shakeable = !is_shakeable
+
+
+func _restart():	
+	Music.play(0.0)
+	get_tree().reload_current_scene()
 
 
 func _spawn_enemies():
@@ -58,6 +69,12 @@ func _on_enemy_changed_direction(changed_enemy: Enemy):
 
 
 func _update_enemies(dead_enemy: Enemy):
+	if is_shakeable:
+		camera_2d.start_shake()
+	
+	hitstop_timer.start()
+	_pause_game()
+	
 	enemies.erase(dead_enemy)
 	for enemy in enemies:
 		enemy.update_speed()
@@ -67,5 +84,26 @@ func _update_enemies(dead_enemy: Enemy):
 
 func _set_game_over(message: String = "G A M E   O V E R !"):
 	print(message)
+	
+	camera_2d.start_shake(5.0, 0.02)
+	hitstop_timer.wait_time = 0.5
+	hitstop_timer.start()
+	_pause_game()
+	
 	for enemy in enemies:
 		enemy.game_over()
+	Music.stop()
+
+
+func _resume_game():
+	for child in get_children():
+		if child is Player or child is Enemy or child is EnemyProjectile or child is PlayerProjectile:
+			child.set_process(true)
+			child.set_process_input(true)
+
+
+func _pause_game():
+	for child in get_children():
+		if child is Player or child is Enemy or child is EnemyProjectile or child is PlayerProjectile:			
+			child.set_process(false)
+			child.set_process_input(false)

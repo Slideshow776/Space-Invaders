@@ -172,6 +172,9 @@ func _on_area_entered(area_that_entered: Area2D):
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_property(sprite_2d, "scale", Vector2.ZERO, 0.25)
 	tween.finished.connect(queue_free)
+	
+	%AudioStreamPlayer.pitch_scale = randf_range(0.9, 1.1)
+	%AudioStreamPlayer.play()
 
 
 func _set_animation_frame(frame_index: int):

@@ -22,6 +22,8 @@ func _ready():
 	tween.set_trans(Tween.TRANS_BOUNCE)
 	tween.tween_property(self, "scale", Vector2(1.9, 0.1), 0.1)
 	tween.tween_property(self, "scale", Vector2(0.8, 1.2), 0.25)
+	%AudioStreamPlayer.pitch_scale = randf_range(0.9, 1.1)
+	%AudioStreamPlayer.play()
 
 
 func _process(delta):

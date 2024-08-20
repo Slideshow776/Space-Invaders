@@ -90,8 +90,8 @@ func _on_area_entered(area_that_entered: Area2D):
 	%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(queue_free)
 	
-	self.set_collision_layer(0)
-	self.set_collision_mask(0)
+	set_collision_layer(0)
+	set_collision_mask(0)
 	died.emit()
 	is_dead = true
 	

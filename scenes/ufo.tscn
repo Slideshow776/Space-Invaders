@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bc3mqgvalhvru"]
+
+[ext_resource type="Script" path="res://scripts/ufo.gd" id="1_fmuy0"]
+[ext_resource type="Texture2D" uid="uid://cx48cp0i4hji" path="res://assets/enemies/ufo_0.png" id="1_ooi46"]
+[ext_resource type="AudioStream" uid="uid://creghkhsquqgn" path="res://assets/audio/ufo_Explosion34.wav" id="3_2jbfg"]
+[ext_resource type="AudioStream" uid="uid://dkp36dqnteep4" path="res://assets/audio/ufo_move.mp3" id="4_0au7n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a6cqn"]
+
+[node name="Ufo" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_fmuy0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_a6cqn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(4.16667, 3.84615)
+texture = ExtResource("1_ooi46")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_2jbfg")
+
+[node name="MovementSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_0au7n")
+volume_db = -10.4

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://2acf4p2ukvio"]
+[gd_scene load_steps=7 format=3 uid="uid://2acf4p2ukvio"]
 
 [ext_resource type="PackedScene" uid="uid://bfsjgvt7mh6op" path="res://scenes/player.tscn" id="1_0jule"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_1k3nv"]
 [ext_resource type="Texture2D" uid="uid://cf5vo6ocldv0o" path="res://assets/background/background.png" id="2_33p74"]
 [ext_resource type="PackedScene" uid="uid://dpbgycad0y1jn" path="res://scenes/shield.tscn" id="3_u3kbr"]
 [ext_resource type="Script" path="res://scripts/camera2D.gd" id="5_ddvuo"]
+[ext_resource type="FontFile" uid="uid://d1ekswo1om84s" path="res://assets/Play-Bold.ttf" id="7_k18vu"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_1k3nv")
@@ -97,3 +98,22 @@ script = ExtResource("5_ddvuo")
 [node name="HitstopTimer" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 1150.0
+offset_bottom = 184.0
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(1152, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_k18vu")
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+vertical_alignment = 1

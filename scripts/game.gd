@@ -13,6 +13,8 @@ var is_shakeable := true
 
 func _ready():
 	_spawn_enemies()
+	_spawn_ufo()
+	
 	player.connect("died", _set_game_over)
 	hitstop_timer.connect("timeout", _resume_game.bind())
 
@@ -61,6 +63,13 @@ func _spawn_enemies():
 			enemy.type = y % enemy.sprites_frame_0.size()
 
 
+func _spawn_ufo():
+	var ufo := preload("res://scenes/ufo.tscn").instantiate()
+	add_child(ufo)
+	ufo.position = Vector2(2000.0, 100.0)
+	ufo.spawn_timer.set_wait_time(30.0)
+
+
 func _on_enemy_changed_direction(changed_enemy: Enemy):
 	for enemy in enemies:
 		if enemy != changed_enemy:
@@ -92,6 +101,11 @@ func _set_game_over(message: String = "G A M E   O V E R !"):
 	
 	for enemy in enemies:
 		enemy.game_over()
+		
+	#for child in get_children():
+		#if child is Ufo:
+			#queue_free()
+			
 	Music.stop()
 
 

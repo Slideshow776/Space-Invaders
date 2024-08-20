@@ -14,21 +14,18 @@ func _ready():
 func play_walk_sounds():
 	if _is_walking_up:
 		_play_walk_up_sound()
-		_is_walking_up = false
 	else:
 		_play_walk_down_sound()
-		_is_walking_up = true
+	_is_walking_up = !_is_walking_up
 
 
 func _play_walk_up_sound():
 	if not _audio_player.playing:
-		print("up")
 		_audio_player.stream = _walk_up_sound
 		_audio_player.play()
 		
 		
 func _play_walk_down_sound():
 	if not _audio_player.playing:
-		print("down")
 		_audio_player.stream = _walk_down_sound
 		_audio_player.play()

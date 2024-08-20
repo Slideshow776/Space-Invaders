@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dd4w6kpfy28d2"]
+[gd_scene load_steps=6 format=3 uid="uid://dd4w6kpfy28d2"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_4lsed"]
 [ext_resource type="Texture2D" uid="uid://diby1le2qgqq" path="res://assets/enemies/enemy_4.png" id="2_of0mq"]
 [ext_resource type="AudioStream" uid="uid://bujp80exq0ima" path="res://assets/audio/enemy_death_Explosion31.wav" id="3_7v5fo"]
+[ext_resource type="AudioStream" uid="uid://bk34kpnmi5o1b" path="res://assets/audio/walk_up.wav" id="4_ijewi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s0bwh"]
 radius = 19.0
@@ -29,7 +30,11 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_s0bwh")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_7v5fo")
 volume_db = -12.235
+
+[node name="WalkUpSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_ijewi")

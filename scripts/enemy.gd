@@ -150,6 +150,8 @@ func _on_movement_timer_timeout():
 		speed = fast_speed
 		movement_timer.set_wait_time(movement_duration_fast)
 		
+		WalkSounds.play_walk_sounds()
+		
 		var tween := create_tween()
 		tween.tween_property(self, "scale", Vector2(1.2, 0.8), 0.1)
 	else:
@@ -173,8 +175,8 @@ func _on_area_entered(area_that_entered: Area2D):
 	tween.tween_property(sprite_2d, "scale", Vector2.ZERO, 0.25)
 	tween.finished.connect(queue_free)
 	
-	%AudioStreamPlayer.pitch_scale = randf_range(0.9, 1.1)
-	%AudioStreamPlayer.play()
+	%DeathSound.pitch_scale = randf_range(0.9, 1.1)
+	%DeathSound.play()
 
 
 func _set_animation_frame(frame_index: int):

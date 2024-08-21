@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_4lsed"]
 [ext_resource type="Texture2D" uid="uid://7aptwq0pab60" path="res://assets/Explosion_Sheet.png" id="2_477gc"]
-[ext_resource type="Texture2D" uid="uid://diby1le2qgqq" path="res://assets/enemies/enemy_4.png" id="2_of0mq"]
 [ext_resource type="AudioStream" uid="uid://bujp80exq0ima" path="res://assets/audio/enemy_death_Explosion31.wav" id="3_7v5fo"]
+[ext_resource type="Texture2D" uid="uid://cyimqdvypltqm" path="res://assets/enemies/enemy00.png" id="3_glvd5"]
 [ext_resource type="AudioStream" uid="uid://bk34kpnmi5o1b" path="res://assets/audio/walk_up.wav" id="4_ijewi"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sy5cw"]
@@ -49,7 +49,7 @@ anim_speed_max = 1.0
 unique_name_in_owner = true
 position = Vector2(0, -4)
 scale = Vector2(4.16667, 3.84615)
-texture = ExtResource("2_of0mq")
+texture = ExtResource("3_glvd5")
 
 [node name="ProjectileTimer" type="Timer" parent="."]
 unique_name_in_owner = true

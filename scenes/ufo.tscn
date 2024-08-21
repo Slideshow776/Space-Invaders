@@ -31,11 +31,11 @@ script = ExtResource("1_fmuy0")
 [node name="FlagParticles" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
 amount = 300
-lifetime = 0.75
+lifetime = 1.6
 texture = ExtResource("6_shi6h")
 direction = Vector2(-1, 0)
 spread = 0.0
-gravity = Vector2(0, 50)
+gravity = Vector2(0, 40)
 initial_velocity_min = 75.0
 initial_velocity_max = 75.0
 damping_min = 0.5

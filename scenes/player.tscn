@@ -50,3 +50,8 @@ shape = SubResource("CircleShape2D_b2tgi")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_tbg2c")
+
+[node name="MovementTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true

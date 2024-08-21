@@ -3,10 +3,10 @@ extends Area2D
 
 signal died
 
-const MAX_SPEED := 500.0
 const MAX_ROTATION_ANGLE = 0.2
 const ROTATION_SPEED = 3.0
 
+var max_speed := 500.0
 var steering_factor := 10.0
 var velocity := Vector2.ZERO
 var is_dead := false
@@ -14,11 +14,13 @@ var is_dead := false
 @onready var projectile_timer = %ProjectileTimer
 @onready var animated_sprite_2d = %AnimatedSprite2D
 @onready var original_scale: Vector2 = animated_sprite_2d.scale
+@onready var movement_timer = %MovementTimer
 
 
 func _ready():
 	area_entered.connect(_on_area_entered)
 	animated_sprite_2d.play("default")
+	movement_timer.connect("timeout", _on_movement_timer_timeout)
 
 
 func _process(delta):
@@ -40,7 +42,7 @@ func _poll_movement(delta: float) -> Vector2:
 	var direction = Vector2.ZERO
 	direction.x = Input.get_axis("move_left", "move_right")
 	
-	var desired_velocity: Vector2 = MAX_SPEED * direction
+	var desired_velocity: Vector2 = max_speed * direction
 	var steering_vector := desired_velocity - velocity	
 	velocity += steering_vector * steering_factor * delta
 	position += velocity * delta
@@ -66,24 +68,37 @@ func _wrap_position():
 		position.x = 0
 
 
+func _on_movement_timer_timeout():
+	max_speed = 500.0
+
+
 func _shoot():
 	if not projectile_timer.is_stopped():
 		return
-		
+	
+	max_speed /= 1
 	projectile_timer.start()
+	movement_timer.start()
 	
 	var projectile := preload("res://scenes/player_projectile.tscn").instantiate()
 	projectile.position = global_position
 	get_parent().add_child(projectile)
 	
-	var tween := create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_BOUNCE)
+	var movement_tween := create_tween()
+	movement_tween.set_ease(Tween.EASE_OUT)
+	movement_tween.set_trans(Tween.TRANS_EXPO)
+	movement_tween.tween_property(animated_sprite_2d, "position:y", 15.0, 0.05)
+	movement_tween.set_trans(Tween.TRANS_ELASTIC)
+	movement_tween.tween_property(animated_sprite_2d, "position:y", -15.0 / 8, 0.1)
+	
+	var bounce_tween := create_tween()
+	bounce_tween.set_ease(Tween.EASE_OUT)
+	bounce_tween.set_trans(Tween.TRANS_BOUNCE)
 	var amount := Vector2(original_scale.x * 1.2, original_scale.y * 0.8)
-	tween.tween_property(animated_sprite_2d, "scale", amount, 0.167)
+	bounce_tween.tween_property(animated_sprite_2d, "scale", amount, 0.167)
 	amount = Vector2(original_scale.x * 0.8, original_scale.y * 1.2)
-	tween.tween_property(animated_sprite_2d, "scale", amount, 0.167)
-	tween.tween_property(animated_sprite_2d, "scale", original_scale, 0.167)
+	bounce_tween.tween_property(animated_sprite_2d, "scale", amount, 0.167)
+	bounce_tween.tween_property(animated_sprite_2d, "scale", original_scale, 0.167)
 
 
 func _on_area_entered(area_that_entered: Area2D):
@@ -102,7 +117,7 @@ func _on_area_entered(area_that_entered: Area2D):
 
 
 func _stretchAndSqueeze():
-	if velocity.length() > MAX_SPEED * 0.9:
+	if velocity.length() > max_speed * 0.9:
 		# Player is moving: Stretch
 		var tween = create_tween()
 		tween.set_ease(Tween.EASE_OUT)

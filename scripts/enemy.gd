@@ -25,24 +25,25 @@ var movement_duration_fast := 0.75
 var movement_duration_slow := 0.04
 var type: int = -1
 var sprites_frame_0: Array[CompressedTexture2D] = [
-	preload("res://assets/enemies/enemy_0_0.png"),
-	preload("res://assets/enemies/enemy_1_0.png"),
-	preload("res://assets/enemies/enemy_2_0.png"),
-	preload("res://assets/enemies/enemy_3_0.png"),
-	preload("res://assets/enemies/enemy_4_0.png"),
+	preload("res://assets/enemies/enemy00.png"),
+	preload("res://assets/enemies/enemy10.png"),
+	preload("res://assets/enemies/enemy20.png"),
+	preload("res://assets/enemies/enemy30.png"),
+	preload("res://assets/enemies/enemy40.png"),
 ]
 var sprites_frame_1: Array[CompressedTexture2D] = [
-	preload("res://assets/enemies/enemy_0_1.png"),
-	preload("res://assets/enemies/enemy_1_1.png"),
-	preload("res://assets/enemies/enemy_2_1.png"),
-	preload("res://assets/enemies/enemy_3_1.png"),
-	preload("res://assets/enemies/enemy_4_1.png"),
+	preload("res://assets/enemies/enemy01.png"),
+	preload("res://assets/enemies/enemy11.png"),
+	preload("res://assets/enemies/enemy21.png"),
+	preload("res://assets/enemies/enemy31.png"),
+	preload("res://assets/enemies/enemy41.png"),
 ]
 var is_animation_frame_0 = true
 
 @onready var sprite_2d = %Sprite2D
 @onready var projectile_timer = %ProjectileTimer
 @onready var movement_timer = %MovementTimer
+@onready var gpu_particles_2d = %GPUParticles2D
 
 
 func _ready():
@@ -168,6 +169,7 @@ func _on_movement_timer_timeout():
 	
 func _on_area_entered(area_that_entered: Area2D):
 	died.emit(self)
+	gpu_particles_2d.emitting = true
 	projectile_timer.stop()
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_IN)

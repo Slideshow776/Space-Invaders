@@ -1,9 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd4w6kpfy28d2"]
+[gd_scene load_steps=9 format=3 uid="uid://dd4w6kpfy28d2"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_4lsed"]
+[ext_resource type="Texture2D" uid="uid://7aptwq0pab60" path="res://assets/Explosion_Sheet.png" id="2_477gc"]
 [ext_resource type="Texture2D" uid="uid://diby1le2qgqq" path="res://assets/enemies/enemy_4.png" id="2_of0mq"]
 [ext_resource type="AudioStream" uid="uid://bujp80exq0ima" path="res://assets/audio/enemy_death_Explosion31.wav" id="3_7v5fo"]
 [ext_resource type="AudioStream" uid="uid://bk34kpnmi5o1b" path="res://assets/audio/walk_up.wav" id="4_ijewi"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sy5cw"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_7gutr"]
+offsets = PackedFloat32Array(0, 0.217778, 0.22, 0.488889, 0.491111, 0.804444, 0.811111)
+colors = PackedColorArray(0.388235, 0.607843, 1, 1, 0.521085, 0.693003, 1, 1, 0.524399, 0.59462, 0.987266, 1, 0.533333, 0.329412, 0.952941, 1, 0, 0.0313726, 0.443137, 1, 0, 0.0313726, 0.443137, 1, 0, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s0bwh"]
 radius = 19.0
@@ -12,6 +23,27 @@ radius = 19.0
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_4lsed")
+
+[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_sy5cw")
+position = Vector2(0, -16)
+emitting = false
+amount = 4
+lifetime = 0.25
+speed_scale = 0.5
+explosiveness = 0.5
+randomness = 0.5
+texture = ExtResource("2_477gc")
+emission_shape = 1
+emission_sphere_radius = 32.0
+gravity = Vector2(0, -100)
+angle_max = 720.0
+scale_amount_min = 3.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_7gutr")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true

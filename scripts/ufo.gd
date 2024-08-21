@@ -23,6 +23,8 @@ var original_y_position: float
 @onready var sprite_2d = %Sprite2D
 @onready var spawn_timer = %SpawnTimer
 @onready var movement_sound = %MovementSound
+@onready var gpu_particles_2d = %GPUParticles2D
+@onready var flag_particles = %FlagParticles
 
 
 func _ready():
@@ -103,25 +105,35 @@ func _on_spawn_timer_timeout():
 	direction.y = 0.0
 	position.y = original_y_position + 40
 	movement_sound.play()
+	gpu_particles_2d.emitting = false
+	flag_particles.emitting = true
 
 
 func _on_area_entered(area_that_entered: Area2D):
+	kill()
+	spawn_timer.start()
+	%DeathSound.play()
+	#%DeathSound.finished.connect(queue_free)
+
+
+func kill():
 	is_dead = true
 	died.emit()
 	movement_sound.stop()
-	spawn_timer.start()
 	max_speed *= 1.1
 	steering_factor = 10.0
 	velocity = Vector2.ZERO
 
 	time_passed = 0.0
-	
-	%DeathSound.play()
-	#%DeathSound.finished.connect(queue_free)
+	%MovementSound.stop()
+	spawn_timer.stop()
 	direction = Vector2(0.0, 1.0)
 	speed = 10.0
 	set_collision_layer(0)
 	set_collision_mask(0)
+	
+	gpu_particles_2d.emitting = true
+	flag_particles.emitting = false
 	
 	var tween := create_tween()
 	tween.tween_property(self, "rotation", 5.0, 0.5)

@@ -6,7 +6,7 @@ const ENEMY_COUNT_Y = 5
 @onready var player = %Player
 @onready var camera_2d = %Camera2D
 @onready var hitstop_timer = $HitstopTimer
-@onready var label = %Label
+@onready var score_label = %ScoreLabel
 @onready var message_label = %MessageLabel
 
 var enemies: Array[Enemy]
@@ -30,6 +30,7 @@ func _input(event):
 
 
 func _restart():	
+	Engine.time_scale = 1.0
 	Music.play(0.0)
 	get_tree().reload_current_scene()
 
@@ -98,11 +99,19 @@ func _update_enemies(dead_enemy: Enemy):
 
 func _add_score(temp: int):
 	score += temp
-	label.text = str(score)
+	score_label.text = str(score)
+	
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_BOUNCE)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(score_label, "scale", Vector2(0.8, 1.2), 0.1)
+	tween.tween_property(score_label, "scale", Vector2(1.1, 0.9), 0.1)
+	tween.tween_property(score_label, "scale", Vector2.ONE, 0.1)
 
 
 func _set_game_over(message: String = "G A M E   O V E R !"):
-	print(message)
+	if message == "G A M E   O V E R !":
+		Engine.time_scale = 0.5
 	message_label.text = message
 	message_label.z_index = 1110
 	message_label.visible = true
@@ -114,11 +123,14 @@ func _set_game_over(message: String = "G A M E   O V E R !"):
 	for enemy in enemies:
 		enemy.game_over()
 		
-	#for child in get_children():
-		#if child is Ufo:
-			#queue_free()
+	for child in get_children():
+		if child is Ufo:
+			child.kill()
+			child.visible = false
 			
 	Music.stop()
+	player.set_process(false)
+	player.set_process_input(false)
 
 
 func _resume_game():

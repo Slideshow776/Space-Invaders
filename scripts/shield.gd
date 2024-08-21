@@ -39,6 +39,8 @@ var textures_1: Array[CompressedTexture2D] = [
 ]
 
 @onready var sprite_2d = %Sprite2D
+@onready var breaking_effect = %BreakingEffect
+@onready var explosion_effect = %ExplosionEffect
 
 
 func _ready():
@@ -56,6 +58,9 @@ func _on_area_entered(area_entered: Area2D):
 	
 	%AudioStreamPlayer.pitch_scale = randf_range(0.8, 1.2)
 	%AudioStreamPlayer.play()
+	breaking_effect.emitting = true
+	explosion_effect.emitting = true
+
 
 func _bounce_animation():
 	var tween := create_tween()
@@ -65,6 +70,7 @@ func _bounce_animation():
 	tween.tween_property(self, "scale", Vector2(1.1, 0.9), 0.1)	
 	tween.tween_property(self, "scale", Vector2(0.95, 1.05), 2.0)
 	tween.tween_property(self, "scale", Vector2.ONE, 1.5)
+
 
 func _set_texture():
 	if health > 4 or health < 1:
